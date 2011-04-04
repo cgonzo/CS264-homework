@@ -22,12 +22,12 @@ def map(line):
   			split_link=re.split('\]\]',link)
  			link_text=split_link[0]
   			link_text_array=re.split('\|',link_text)
-  			yield(title,link_text_array[0])
+  			yield(title.upper(),link_text_array[0].upper())
 
 def reduce(word, counts):
-	pagerank=1
-	counts.insert(0,pagerank)
-	yield(word,json.dumps(counts))
+	pagerank=1.0
+	data_to_output=[pagerank, counts]
+	yield(word,json.dumps(data_to_output))
 
 if __name__ == "__main__":
   common.main(map, reduce)
