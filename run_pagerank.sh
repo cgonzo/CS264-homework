@@ -11,13 +11,13 @@ input_linkmap="linkmap$i"
 output_linkmap="linkmap$((i+1))"
 reducer_output="results$i"
 hadoop fs -rmr $output_linkmap
-if [ -n $2]
+if [ $2 ]
 then
-echo "Using default reducers"
-hadoop jar $SJAR -mapper "$(pwd)/pagerank.py map" -reducer "$(pwd)/pagerank.py reduce" -input $input_linkmap -output $output_linkmap
-else
 echo "Using $2 reducers"
 hadoop jar $SJAR -mapper "$(pwd)/pagerank.py map" -reducer "$(pwd)/pagerank.py reduce" -input $input_linkmap -output $output_linkmap -numReduceTasks $2
+else
+echo "Using default reducers"
+hadoop jar $SJAR -mapper "$(pwd)/pagerank.py map" -reducer "$(pwd)/pagerank.py reduce" -input $input_linkmap -output $output_linkmap
 fi
 hadoop fs -rmr $reducer_output
 hadoop jar $SJAR -mapper "$(pwd)/pr_out.py map" -reducer "sort" -input $output_linkmap -output $reducer_output
