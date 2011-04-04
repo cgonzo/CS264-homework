@@ -25,10 +25,8 @@ def map(line):
   			yield(title,link_text_array[0])
 
 def reduce(word, counts):
-	numlinks=0
-	for link in counts:
-		numlinks+=1
-	counts.insert(0,numlinks)
+	pagerank=1
+	counts.insert(0,pagerank)
 	yield(word,json.dumps(counts))
 
 if __name__ == "__main__":
