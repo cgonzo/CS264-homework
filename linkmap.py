@@ -6,6 +6,7 @@ import json
 
 def map(line):
 	# find the title
+	common.ununicode(line)
 	title_match=re.match('<page>\s*<title>(.*?)<',line)
 	if title_match:
 		title=title_match.group(1)
