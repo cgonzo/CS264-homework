@@ -2,6 +2,7 @@
 
 import common
 import re
+import json
 
 def map(line):
 	# find the title
@@ -24,7 +25,11 @@ def map(line):
   			yield(title,link_text_array[0])
 
 def reduce(word, counts):
-  pass
+	numlinks=0
+	for link in counts:
+		numlinks+=1
+	counts.insert(0,numlinks)
+	yield(word,json.dumps(counts))
 
 if __name__ == "__main__":
   common.main(map, reduce)
