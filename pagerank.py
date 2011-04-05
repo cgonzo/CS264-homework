@@ -10,8 +10,8 @@ import json
 # will also output the original input
 def map(line):
 	# split into key,value
-	line_split=re.split('\t',line,maxsplit=1)
-	if line_split:	# this should always be true
+	line_split=re.split('\t',line)
+	if len(line_split)==2:	# this should always be true
 		linker_name=line_split[0]
 		link_data=json.loads(line_split[1])
 		pagerank=link_data[0]
@@ -19,6 +19,7 @@ def map(line):
 		if link_list:	# to handle a page that doesn't link to anything
 			pagerank=pagerank/len(link_list)
 		for link in link_list:
+			link=re.sub('\t',' ',link)
 			output_data=[pagerank,linker_name]
   			yield(link,json.dumps(output_data))
   		link_data[0]='old'
@@ -32,7 +33,10 @@ def reduce(word, counts):
 	pagerank=0
 	list_of_links=[]
 	for linker_json in counts:
-		linker_list=json.loads(linker_json)
+		try:
+			linker_list=json.loads(linker_json)
+		except:
+			raise NameError("Error with line"+linker_json)
 		pagerank_data=linker_list[0]
 		if pagerank_data == 'old':
 			list_of_links=linker_list[1]
