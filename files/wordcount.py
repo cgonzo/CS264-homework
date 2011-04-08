@@ -20,7 +20,15 @@ def reduce(word, counts):
 __global__ void reduction(float *g_data, int n)
 {
 	int index=blockIdx.x*blockDim.x+threadIdx.x;
-	g_data[index]=index;
+	int numberOfCalculationsForThisStep=n/2;
+	while(numberOfCalculationsForThisStep>0)
+	{
+		if(index<numberOfCalculationsForThisStep)
+		{
+			g_data[index]=g_data[index]+g_data[index+numberOfCalculationsForThisStep];
+		}
+		numberOfCalculationsForThisStep/=2;
+		
     return;
 }
   """)
