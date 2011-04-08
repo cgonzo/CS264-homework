@@ -12,7 +12,7 @@ def map(line):
 		yield("1","1")
 
 def reduce(word, counts):
-	counts_int=numpy.array(counts,int)
+	counts_int=numpy.array(counts,int32)
 	counts_gpu = cuda.mem_alloc(len(counts_int)*4)
 	#cuda.memcpy_htod(counts_gpu, counts_int)
 	
@@ -36,8 +36,7 @@ __global__ void reduction(float *g_data, int n)
 	func = mod.get_function("reduction")
 	func(counts_gpu,numpy.int32(64),block=(512,1,1))
 	counts_return = numpy.empty_like(counts_int)
-	#cuda.memcpy_dtoh(counts_return, counts_gpu)
-	print counts_gpu
+	cuda.memcpy_dtoh(counts_return, counts_gpu)
 	yield("1",counts_return[0])
 
 if __name__ == "__main__":
