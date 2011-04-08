@@ -39,6 +39,7 @@ __global__ void reduction(float *g_data)
 	numBlocks=math.ceil(totalsize/threadsPerBlock)
 	while(numBlocks>0):
 		func(counts_gpu,block=(512,1,1))
+		numelements=numBlocks
 		if(numBlocks==1):
 			numBlocks=0
 		else:
