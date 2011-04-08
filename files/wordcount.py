@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import common
-import pycuda as cuda
+import pycuda.driver as cuda
 import pycuda.autoinit
 from pycuda.compiler import SourceModule
 import numpy
