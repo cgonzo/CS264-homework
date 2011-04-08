@@ -6,7 +6,7 @@ import numpy
 
 def map(line):
 	common.ununicode(line)
-	for word in line.split:
+	for word in line.split():
 		yield(1,1)
 
 def reduce(word, counts):
