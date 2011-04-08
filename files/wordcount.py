@@ -37,8 +37,8 @@ __global__ void reduction(float *g_data)
 	func = mod.get_function("reduction")
 	
 	totalsize=len(counts)
-	threadsPerBlock=512;
-	numBlocks=math.ceil(totalsize/threadsPerBlock)
+	threadsPerBlock=totalsize#512;
+	numBlocks=1#math.ceil(totalsize/threadsPerBlock)
 	print "totalsize:"+str(totalsize)+" numBlocks:"+str(numBlocks)
 	while(numBlocks>0):
 		func(counts_gpu,block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
