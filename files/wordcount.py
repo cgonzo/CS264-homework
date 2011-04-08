@@ -37,7 +37,7 @@ __global__ void reduction(float *g_data, int n)
 	func(counts_gpu,numpy.int32(64),block=(512,1,1))
 	counts_return = numpy.empty_like(counts_gpu)
 	cuda.memcpy_dtoh(counts_return, counts_gpu)
-	yield("1","1")
+	yield("1",counts_return[0])
 
 if __name__ == "__main__":
   common.main(map, reduce)
