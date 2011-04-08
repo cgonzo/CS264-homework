@@ -7,7 +7,7 @@ import numpy
 def map(line):
 	common.ununicode(line)
 	for word in line.split():
-		yield("1",1)
+		yield("1","1")
 
 def reduce(word, counts):
 	counts_int=counts.astype(numpy.int)
