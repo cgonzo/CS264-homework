@@ -10,7 +10,7 @@ def map(line):
 		yield("1","1")
 
 def reduce(word, counts):
-	counts_int=counts.astype(numpy.int)
+	counts_int=numpy.array(counts,int)
 	counts_gpu = cuda.mem_alloc(counts.nbytes)
 	cuda.memcpy_htod(counts_gpu, counts)
 	
