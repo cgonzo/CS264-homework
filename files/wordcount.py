@@ -9,7 +9,7 @@ import math
 
 def map(line):
 	common.ununicode(line)
-	int i=0
+	i=0
 	for word in line.split():
 		i=i+1
 	yield("1",str(i))
