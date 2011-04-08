@@ -14,7 +14,7 @@ def map(line):
 def reduce(word, counts):
 	counts_int=numpy.array(counts,numpy.int32)
 	counts_gpu = cuda.mem_alloc(len(counts_int)*4)
-	#cuda.memcpy_htod(counts_gpu, counts_int)
+	cuda.memcpy_htod(counts_gpu, counts_int)
 	
 	mod = SourceModule("""
 __global__ void reduction(float *g_data, int n)
