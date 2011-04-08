@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import common
-import pyopencl
+import pycuda
 import numpy
 
 def map(line):
