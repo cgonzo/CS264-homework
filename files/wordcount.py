@@ -30,7 +30,7 @@ __global__ void reduction(float *g_data,int n)
 			g_data[index]=g_data[index]+g_data[index+numberOfCalculationsForThisStep];
 		}
 		numberOfCalculationsForThisStep/=2;
-		__syncthreads()
+		__syncthreads();
 	}
     return;
 }
