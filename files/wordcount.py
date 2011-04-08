@@ -19,10 +19,10 @@ def reduce(word, counts):
 	counts_gpu = cuda.mem_alloc(len(counts_int)*4)
 	cuda.memcpy_htod(counts_gpu, counts_int)
 	mod = SourceModule("""
-__global__ void reduction(float *g_data)
+__global__ void reduction(float *g_data,int n)
 {
 	int index=blockIdx.x*blockDim.x+threadIdx.x;
-	int numberOfCalculationsForThisStep=(blockIdx.x*blockDim.x+1)/2;
+	int numberOfCalculationsForThisStep=(n+1)/2;
 	while(numberOfCalculationsForThisStep>0)
 	{
 		if(index<numberOfCalculationsForThisStep)
@@ -41,7 +41,7 @@ __global__ void reduction(float *g_data)
 	numBlocks=math.ceil(totalsize/threadsPerBlock)
 	print "totalsize:"+str(totalsize)+" numBlocks:"+str(numBlocks)
 	while(numBlocks>0):
-		func(counts_gpu,block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
+		func(counts_gpu,numpy.int32(totalsize),block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
 		numelements=numBlocks
 		if(numBlocks==1):
 			numBlocks=0
