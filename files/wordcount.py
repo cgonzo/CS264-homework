@@ -2,6 +2,8 @@
 
 import common
 import pycuda
+import pycuda.autoinit
+from pycuda.compiler import SourceModule
 import numpy
 
 def map(line):
