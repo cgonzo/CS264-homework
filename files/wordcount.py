@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import common
-import pycuda
+import pycuda as cuda
 import pycuda.autoinit
 from pycuda.compiler import SourceModule
 import numpy
@@ -13,8 +13,8 @@ def map(line):
 
 def reduce(word, counts):
 	counts_int=numpy.array(counts,int)
-	counts_gpu = pycuda.mem_alloc(counts.nbytes)
-	pycuda.memcpy_htod(counts_gpu, counts)
+	counts_gpu = cuda.mem_alloc(counts.nbytes)
+	cuda.memcpy_htod(counts_gpu, counts)
 	
 	mod = SourceModule("""
 __global__ void reduction(float *g_data, int n)
@@ -43,7 +43,7 @@ __global__ void reduction(float *g_data, int n)
 	func = mod.get_function("reduction")
 	func(counts_gpu)
 	counts_return = numpy.empty_like(counts)
-	pycuda.memcpy_dtoh(counts_return, counts)
+	cuda.memcpy_dtoh(counts_return, counts)
 	yield("1",counts_return[0])
 
 if __name__ == "__main__":
