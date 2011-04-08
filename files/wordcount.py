@@ -9,8 +9,10 @@ import math
 
 def map(line):
 	common.ununicode(line)
+	int i=0
 	for word in line.split():
-		yield("1","1")
+		i=i+1
+	yield("1",str(i))
 
 def reduce(word, counts):
 	counts_int=numpy.array(counts,numpy.int32)
