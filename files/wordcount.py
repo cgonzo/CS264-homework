@@ -17,7 +17,7 @@ def reduce(word, counts):
 	#cuda.memcpy_htod(counts_gpu, counts_int)
 	
 	mod = SourceModule("""
-__global__ void reduction(float *g_data)
+__global__ void reduction(float *g_data, int n)
 {
 	int index=blockIdx.x*blockDim.x+threadIdx.x;
 	g_data[index]=index;
@@ -26,7 +26,7 @@ __global__ void reduction(float *g_data)
   """)
 	
 	func = mod.get_function("reduction")
-	func(counts_gpu,block=(512,1,1))
+	func(counts_gpu,numpy.int_(64),block=(512,1,1))
 	counts_return = numpy.empty_like(counts_gpu)
 	cuda.memcpy_dtoh(counts_return, counts_gpu)
 	yield("1","1")
