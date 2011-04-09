@@ -25,7 +25,7 @@ __global__ void reduction(float *g_data,int n)
 	int numberOfCalculationsForThisStep=(n+1)/2;
 	while(numberOfCalculationsForThisStep>0)
 	{
-		if(index<numberOfCalculationsForThisStep)
+		if((index<numberOfCalculationsForThisStep)&&(index+numberOfCalculationsForThisStep<n))
 		{
 			g_data[index]=g_data[index]+g_data[index+numberOfCalculationsForThisStep];
 		}
