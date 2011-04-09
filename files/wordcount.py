@@ -55,11 +55,11 @@ __global__ void reduction(float *g_data,int n)
 			numBlocks=math.ceil(numelements/threadsPerBlock)
 	counts_return = numpy.empty_like(counts_int)
 	cuda.memcpy_dtoh(counts_return, counts_gpu)
-	yield("1",str(counts_return[0]))
+	yield("gpu",str(counts_return[0]))
 	total=0
 	for count in counts:
 		total=total+int(count)
-	yield("2",str(total))
+	yield("cpu",str(total))
 
 if __name__ == "__main__":
   common.main(map, reduce)
