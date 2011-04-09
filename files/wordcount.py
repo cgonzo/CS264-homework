@@ -22,7 +22,7 @@ def reduce(word, counts):
 __global__ void reduction(float *g_data,int n)
 {
 	int index=blockIdx.x*blockDim.x+threadIdx.x;
-	int numberOfCalculationsForThisStep=(n+1)/2;
+	int numberOfCalculationsForThisStep=(blockDim.x+1)/2;
 	while(numberOfCalculationsForThisStep>0)
 	{
 		if((index<numberOfCalculationsForThisStep)&&(index+numberOfCalculationsForThisStep<n))
