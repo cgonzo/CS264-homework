@@ -49,7 +49,6 @@ __global__ void reduction(float *g_data,int n)
 	while(numBlocks>0):
 		func(counts_gpu,numpy.int32(totalsize),block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
 		numelements=numBlocks
-		numBlocks=1
 		if(numBlocks==1):
 			numBlocks=0
 		else:
