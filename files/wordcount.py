@@ -32,6 +32,11 @@ __global__ void reduction(float *g_data,int n)
 		numberOfCalculationsForThisStep/=2;
 		__syncthreads();
 	}
+	// and copy the data in a place where we can get at it for next round
+	if(threadIdx.x==0)
+	{
+		g_data[blockIdx.x]=g_data[index];
+	}
     return;
 }
   """)
