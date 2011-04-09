@@ -46,8 +46,9 @@ __global__ void reduction(float *g_data,int n)
 	threadsPerBlock=512;
 	numBlocks=math.ceil((totalsize+threadsPerBlock-1)/threadsPerBlock)
 	print "totalsize:"+str(totalsize)+" numBlocks:"+str(numBlocks)
+	numelements=totalsize
 	while(numBlocks>0):
-		func(counts_gpu,numpy.int32(totalsize),block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
+		func(counts_gpu,numpy.int32(numelements),block=(threadsPerBlock,1,1),grid=(int(numBlocks),1))
 		numelements=numBlocks
 		if(numBlocks==1):
 			numBlocks=0
