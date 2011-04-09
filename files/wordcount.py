@@ -59,7 +59,7 @@ __global__ void reduction(float *g_data,int n)
 	yield("1",str(counts_return[0]))
 	total=0
 	for count in counts:
-		total=total+count
+		total=total+int(count)
 	yield("2",str(total))
 
 if __name__ == "__main__":
